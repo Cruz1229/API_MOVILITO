@@ -18,6 +18,17 @@ class InventarioNuevos extends Model
         'modelo', 
         'color', 
         'cantidad', 
+        'imagen',
         'estado'
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        self::saving(function ($nuevo) {
+            // Asignar el estado según el valor de la cantidad
+            $nuevo->estado = $nuevo->cantidad > 0 ? 'DISPONIBLE' : 'NO DISPONIBLE';
+        });
+    }
 }
