@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\InventarioNuevos;
+use App\Mail\testMail;
+use Mail;
 use Illuminate\Http\Request;
 
 class InventarioNuevosController extends Controller
@@ -63,5 +65,18 @@ class InventarioNuevosController extends Controller
     {
         $nuevo->delete();
         return response()->json(null, 204);
+    }
+
+    public function obtenerPorAno($ano)
+    {
+        $productos = InventarioNuevos::where('ano', $ano)->get();
+
+        return response()->json($productos);
+    }
+
+    public function getMail()
+    {
+        $data = ['name' => 'David'];
+        Mail::to('crecencio0609@gmail.com')->send(new testMail($data));
     }
 }

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InventarioNuevosController;
+use App\Http\Controllers\PruebaManejoNuevoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,9 +21,18 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix' => 'nuevos'], function () {
-    Route::get('/', [InventarioNuevosController::class, 'index']); // Obtener todas las fincas
-    Route::post('/', [InventarioNuevosController::class, 'store']); // Crear una nueva finca
-    Route::get('/{idNuevo}', [InventarioNuevosController::class, 'show']); // Obtener una finca específica
-    Route::put('/{idNuevo}', [InventarioNuevosController::class, 'update']); // Actualizar una finca específica
+    Route::get('/', [InventarioNuevosController::class, 'index']);
+    Route::post('/', [InventarioNuevosController::class, 'store']);
+    Route::get('/{idNuevo}', [InventarioNuevosController::class, 'show']);
+    Route::put('/{idNuevo}', [InventarioNuevosController::class, 'update']);
     Route::delete('/{idNuevo}', [InventarioNuevosController::class, 'destroy']);
+    Route::get('/inventario/{ano}', [InventarioNuevosController::class, 'obtenerPorAno']);
+});
+
+Route::group(['prefix' => 'pruebanuevos'], function () {
+    Route::get('/', [PruebaManejoNuevoController::class, 'index']);
+    Route::post('/', [PruebaManejoNuevoController::class, 'store']);
+    Route::get('/{idPrueba}', [PruebaManejoNuevoController::class, 'show']);
+    Route::put('/{idPrueba}', [PruebaManejoNuevoController::class, 'update']);
+    Route::delete('/{idPrueba}', [PruebaManejoNuevoController::class, 'destroy']);
 });
